@@ -9,7 +9,7 @@ divisBy2 = myRange.where("number % 2 = 0")
 # COMMAND ----------
 
 flightData2015 = spark\
-  .read\
+  .read \
   .option("inferSchema", "true")\
   .option("header", "true")\
   .csv("/data/flight-data/csv/2015-summary.csv")
