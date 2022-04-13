@@ -1,29 +1,30 @@
-FROM conda/miniconda3
-# FROM ubuntu:latest
+# FROM conda/miniconda3
+FROM ubuntu:latest
 
 LABEL maintainer="Basil Ihuoma <Ihuomacbasil@gmail.com>"
 
 # Set variables
 ENV DAEMON_RUN=true
-ARG SPARK_VERSION=3.2.1
+ARG SPARK_VERSION=3.1.2
 ARG HADOOP_VERSION=3.2
-ARG HADOOP_ZIP_VERSION=3.3.1
-ENV SPARK_HOME=/spark
+ARG HADOOP_ZIP_VERSION=3.2.2
+# ENV SPARK_HOME=/spark
 
 # Set work directory
 WORKDIR /app
 
 COPY requirements.txt /app/
 
-RUN pip install -r requirements.txt
-
 # # Install additional libraries
 RUN apt-get update \
     && apt-get install -y \
+        python3-pip \
         sudo \
         wget \
         apt-transport-https \
         openjdk-8-jdk
+
+RUN sudo pip install -r requirements.txt
 
 # Set JAVA_HOME environment var
 ENV JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk"

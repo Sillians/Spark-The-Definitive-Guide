@@ -27,3 +27,16 @@ df = spark.createDataFrame(
 )
 
 df.show()
+
+myRange = spark.range(1000).toDF("number")
+divisBy2 = myRange.where("number % 2 = 0")
+divisBy2.show()
+
+
+flightData2015 = spark\
+  .read \
+  .option("inferSchema", "true")\
+  .option("header", "true")\
+  .csv("/azure_spark/data/flight-data/csv/2015-summary.csv")
+
+flightData2015.createOrReplaceTempView("flight_data_2015")
